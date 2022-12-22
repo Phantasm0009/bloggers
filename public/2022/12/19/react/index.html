@@ -1,0 +1,133 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>React.js - Custom Hooks</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+The topic of hooks in React development is quite popular and has been analyzed more than once by various specialists. The purpose of our material is not so much to bring something new as to analyze a sufficiently important and relevant topic in the most accessible and understandable language, so that it does not cause difficulties even for beginners in th.."><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Aditya's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">React.js - Custom Hooks</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#It%E2%80%99s-easier-with-hooks"><span class="toc-text">It’s easier with hooks!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React%E2%80%99s-main-hooks-out-of-the-box"><span class="toc-text">React’s main hooks out of the box</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#useState-manage-the-state-in-functional-components"><span class="toc-text">useState - manage the state in functional components</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useContext-we-transfer-information-to-any-levels-of-nesting"><span class="toc-text">useContext - we transfer information to any levels of nesting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useEffect-we-implement-lifecycle-functionality"><span class="toc-text">useEffect - we implement lifecycle functionality</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#useRef-link-variables-directly-to-DOM"><span class="toc-text">useRef - link variables directly to DOM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#More-hooks"><span class="toc-text">More hooks!</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#We%E2%80%99re-writing-our-own-hook"><span class="toc-text">We’re writing our own hook</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/React"><i class="tag post-item-tag">React</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">React.js - Custom Hooks</h1><time class="has-text-grey" datetime="2022-12-19T19:56:06.000Z">2022-12-19</time><article class="mt-2 post-content"><p><img src="/images/react.webp" alt="$cover"></p>
+<p>The topic of hooks in React development is quite popular and has been analyzed more than once by various specialists. The purpose of our material is not so much to bring something new as to analyze a sufficiently important and relevant topic in the most accessible and understandable language, so that it does not cause difficulties even for beginners in the development of applications on React.</p>
+<p>First appeared in React version 16.8. The structure of applications based on the use of hooks was very pleasant to the community for its flexibility and simplicity, which allowed it to practically replace classes.</p>
+<h2 id="It’s-easier-with-hooks"><a href="#It’s-easier-with-hooks" class="headerlink" title="It’s easier with hooks!"></a><a href="#its-easier-with-hooks"></a>It’s easier with hooks!</h2><p>Many newcomers were scared away by the classes with their cumbersomeness and less transparency. The mechanisms of state and reusable use looked much more complicated than in reality. The introduction of hooks has largely solved this problem and significantly increased the popularity of the library, which has been steadily growing for several years.</p>
+<h2 id="React’s-main-hooks-out-of-the-box"><a href="#React’s-main-hooks-out-of-the-box" class="headerlink" title="React’s main hooks out of the box"></a><a href="#reacts-main-hooks-out-of-the-box"></a>React’s main hooks out of the box</h2><p>React out of the box contains several very important hooks.</p>
+<h3 id="useState-manage-the-state-in-functional-components"><a href="#useState-manage-the-state-in-functional-components" class="headerlink" title="useState - manage the state in functional components"></a><a href="#usestate-manage-the-state-in-functional-components"></a>useState - manage the state in functional components</h3><p>One of the most important hooks is useState. Its name immediately makes it clear what it is used for - it is responsible for the state. This hook allows you to influence the state like the this.setState() method. First of all, let’s look at a simple example of its use:  </p>
+<pre><code>const MyComponent = () =&gt; &#123;
+  const [counter, setCounter] = useState(1);
+  return (
+    &lt;button onClick=&#123;() =&gt; setCounter(counter + 1)&#125;&gt;
+      +1 to the previous value
+    &lt;/button&gt;
+);
+&#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>In this example, after the functional element is declared, we call the useState method, passing it the default value:  </p>
+<pre><code>const [counter, setCounter] = useState(1);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>The method returns an array of 2 elements. The 1st element is a state variable, the 2nd element contains a function to change this state. The button is set to the onClick event, which allows you to change the state by increasing the value by 1 from the previous one:  </p>
+<pre><code>onClick=&#123;() =&gt; setCounter(counter + 1)&#125;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<h3 id="useContext-we-transfer-information-to-any-levels-of-nesting"><a href="#useContext-we-transfer-information-to-any-levels-of-nesting" class="headerlink" title="useContext - we transfer information to any levels of nesting"></a><a href="#usecontext-we-transfer-information-to-any-levels-of-nesting"></a>useContext - we transfer information to any levels of nesting</h3><p>As a rule, the parent component shares data with children using props. However, there is a need to transfer this data not only to the nearest “children” of this component, but also to more nested components. Transmitting “relatives” along the entire chain is terribly inconvenient and can lead to mistakes. In this case, it is convenient to use useContext.  </p>
+<pre><code>import &#123;createContext, useContext&#125; from &quot;react&quot;;
+
+const MyContext = createContext(&quot;no data&quot;);
+
+const Bookcase = () =⟩ &#123;
+  return (
+    ⟨MyContext.Provider value=&quot;шкаф #1 &quot;⟩
+      ⟨Bookshelf /⟩
+    ⟨/MyContext.Provider⟩
+  );
+&#125;;
+
+const Bookshelf = () =⟩ &#123;
+  return ⟨Book /⟩;
+&#125;;
+
+const Book = () =⟩ &#123;
+  const context = useContext(MyContext);
+  return `Book in is &quot;$&#123;context&#125;&quot;`;
+&#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>In this example, thanks to the useContext hook, each book can have information about which cabinet it is located in, and there is no need to receive it from the direct parent (book shelf).</p>
+<h3 id="useEffect-we-implement-lifecycle-functionality"><a href="#useEffect-we-implement-lifecycle-functionality" class="headerlink" title="useEffect - we implement lifecycle functionality"></a><a href="#useeffect-we-implement-lifecycle-functionality"></a>useEffect - we implement lifecycle functionality</h3><p>Used to simulate the lifecycle, as well as the componentDidMount, componentDidUpdate, componentWillUnmount methods do when using the React structure on classes. A callback function is passed as arguments, which performs the necessary actions and an array with variables, the change of which must be monitored and callback when they are changed.</p>
+<h3 id="useRef-link-variables-directly-to-DOM"><a href="#useRef-link-variables-directly-to-DOM" class="headerlink" title="useRef - link variables directly to DOM"></a><a href="#useref-link-variables-directly-to-dom"></a>useRef - link variables directly to DOM</h3><p>To access DOM elements directly in functional components, you must use useRef. In the example below, we bind the button to the buttonRef variable and can use this link in the callback function passed as the 1st argument in useRef.  </p>
+<pre><code>const MyButton = () =⟩ &#123;
+  const buttonRef = useRef();
+  useEffect(() =⟩ &#123;
+    console.log(buttonRef.current.innerHTML);
+  &#125;, []);
+  return ⟨button ref=&#123;ref&#125;⟩My button⟨/button⟩;
+&#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<h2 id="More-hooks"><a href="#More-hooks" class="headerlink" title="More hooks!"></a><a href="#more-hooks"></a>More hooks!</h2><p>useReducer: allows you to store the status value regardless of nesting, is an analogue of Redux.</p>
+<p>useMemo: allows you to store the value and recalculate only when constraints change.</p>
+<p>useCallback: used to memoize functions, avoids unnecessary rendering and re-creation of functions. Very useful for optimization.</p>
+<h2 id="We’re-writing-our-own-hook"><a href="#We’re-writing-our-own-hook" class="headerlink" title="We’re writing our own hook"></a><a href="#were-writing-our-own-hook"></a>We’re writing our own hook</h2><p>In essence, hooks are common functions, the name of which begins with the prefix “use”. They can use other hooks, accept arguments and return the result.</p>
+<p>It is convenient to create your own hooks when you need to learn the logic that is often used in different components of the application. It is necessary to remember about important restrictions for hooks: you can’t call inside conditional constructions and loops - this will cause an error in the application.</p>
+<p>Let’s look at an example from the official react documentation. It is interesting because it describes an example of creating a useReducer hook using an existing useState.</p>
+<p>Let’s say we work with a component that has a fairly developed state management logic depending on their type. In this case, useState is not very convenient to use with centralized state management logic and Redux-reducer is more suitable:  </p>
+<pre><code>function todosReducer(state, action) &#123;
+  switch (action.type) &#123;
+    case &#39;add&#39;:
+      return [...state, &#123;
+        text: action.text,
+        completed: false
+      &#125;];
+    // ... other actions ...
+    default:
+      return state;
+  &#125;
+&#125;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Our hook will look like this (simplified):  </p>
+<pre><code>function useReducer(reducer, initialState) &#123;
+  const [state, setState] = useState(initialState)
+
+  function dispatch(action) &#123;
+    const nextState = reducer(state, action)
+    setState(nextState)
+  &#125;
+
+  return [state, dispatch]
+&#125;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Here we accept as parameters - a reworker function responsible for the log of state change, initial state, and return the current state and function to change it. At the same time, we can very easily modify the logic of changing states by adding&#x2F;changing types in the todosReducer function. After that, it is convenient to use this logic in your component:  </p>
+<pre><code>function Todos() &#123;
+  const [todos, dispatch] = useReducer(todosReducer, [])
+  function handleAddClick(text) &#123;
+    dispatch(&#123; type: &#39;add&#39;, text &#125;)
+  &#125;
+  // ...
+&#125;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Hooks can be used for a wide variety of purposes. Let’s look at an example of a hook for working with local browser storage:  </p>
+<pre><code>function getStorageValue(key, defaultValue) &#123;
+  const saved = localStorage.getItem(key);
+  const initial = !saved || saved === &#39;undefined&#39; ? null : JSON.parse(saved);
+  return initial || defaultValue;
+&#125;
+export default  function useLocalStorage (key, defaultValue)&#123;
+  const [value, setValue] = useState(() =⟩ &#123;
+    return getStorageValue(key, defaultValue);
+  &#125;);
+
+  useEffect(() =⟩ &#123;
+    localStorage.setItem(key, JSON.stringify(value));
+  &#125;, [key, value]);
+
+  return [value, setValue];
+&#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>We defined the function of working with localStorage by writing our own logic for obtaining primary data from the repository. Then we created a hook that initializes the state using the result of this function. We also use useEffect to write to localStorage when changing the value of the key or value variables. In our component, we can use the hook in this way:  </p>
+<pre><code>const [storageData, setStorageData] = useLocalStorage(&#39;my-data&#39;);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>So, we managed to link data in the state with the data in the local browser storage.</p>
+<p>That’s all for now, I hope this article helped make understanding the topic of hooks easier for you!</p>
+<p>Thanks for reading. Leave your comments below and follow my <a target="_blank" rel="noopener" href="https://github.com/Phantasm0009">GitHub</a> &lt;3</p>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2022/12/20/flask/" title="How to Build a Todo Application With Python Flask, Heroku and Tailwind CSS"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: How to Build a Todo Application With Python Flask, Heroku and Tailwind CSS</span></a><a class="button is-default" href="/2022/12/18/git/" title="20 Git Commands You (Probably) Didn't Know About 🧙‍♂️"><span class="has-text-weight-semibold">Next: 20 Git Commands You (Probably) Didn't Know About 🧙‍♂️</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Phantasm0009/lol" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com/Phantasm0006"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Phantasm0009"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//aditya_14_tiwari"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Aditya 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span>hi</span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

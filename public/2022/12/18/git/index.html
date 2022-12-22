@@ -1,0 +1,217 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>20 Git Commands You (Probably) Didn't Know About 🧙‍♂️</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+If you’ve ever browsed the git manual (or run man git), then you’ll have noticed there’s a whole lot more to git than what most of us use on a daily basis. A lot of these commands are incredibly powerful and can make your life a lot easier (others are a bit niche, but still good to know).
+
+This post outlines 20 of my favourite under-used git features, whi.."><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Aditya's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">20 Git Commands You (Probably) Didn't Know About 🧙‍♂️</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Contents-and-TL-DR"><span class="toc-text">Contents (and TL;DR)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Web"><span class="toc-text">Git Web</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Notes"><span class="toc-text">Git Notes</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Bisect"><span class="toc-text">Git Bisect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Grep"><span class="toc-text">Git Grep</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Archive"><span class="toc-text">Git Archive</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Submodules"><span class="toc-text">Git Submodules</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Bug-Report"><span class="toc-text">Git Bug Report</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Fsck"><span class="toc-text">Git Fsck</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Stripspace"><span class="toc-text">Git Stripspace</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Diff"><span class="toc-text">Git Diff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Hooks"><span class="toc-text">Git Hooks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Blame"><span class="toc-text">Git Blame</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-LFS"><span class="toc-text">Git LFS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-GC"><span class="toc-text">Git GC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Show"><span class="toc-text">Git Show</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Describe"><span class="toc-text">Git Describe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Tag"><span class="toc-text">Git Tag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Reflog"><span class="toc-text">Git Reflog</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Log"><span class="toc-text">Git Log</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Cherry-Pick"><span class="toc-text">Git Cherry Pick</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Switch"><span class="toc-text">Git Switch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git-Standup"><span class="toc-text">Git Standup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-text">Bonus</span></a></div><div class="column is-9"><header class="my-4"><a href="/tags/Git"><i class="tag post-item-tag">Git</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">20 Git Commands You (Probably) Didn't Know About 🧙‍♂️</h1><time class="has-text-grey" datetime="2022-12-18T19:48:01.000Z">2022-12-18</time><article class="mt-2 post-content"><p><img src="/images/git.webp" alt="$cover"></p>
+<p>If you’ve ever browsed the <a target="_blank" rel="noopener" href="https://git-scm.com/docs">git manual</a> (or run <code>man git</code>), then you’ll have noticed there’s a whole lot more to git than what most of us use on a daily basis. A lot of these commands are incredibly powerful and can make your life a lot easier (others are a bit niche, but still good to know).</p>
+<blockquote>
+<p>This post outlines 20 of my favourite under-used git features, which you can use to level up your development process, impress your colleagues, help you answer git interview questions, and most importantly - have fun with!</p>
+</blockquote>
+<h3 id="Contents-and-TL-DR"><a href="#Contents-and-TL-DR" class="headerlink" title="Contents (and TL;DR)"></a><a href="#contents-and-tldr"></a>Contents (and TL;DR)</h3><ul>
+<li><a href="#git-web">Git Web</a> - <em>Open builtin GUI</em></li>
+<li><a href="#git-notes">Git Notes</a> - <em>Attach extra info to commits</em></li>
+<li><a href="#git-bisect">Git Bisect</a> - <em>Debug like a pro</em></li>
+<li><a href="#git-grep">Git Grep</a> - <em>Search for anything</em></li>
+<li><a href="#git-archive">Git Archive</a> - <em>Compress project for sharing</em></li>
+<li><a href="#git-submodules">Git Submodules</a> - <em>Import other repos into yours</em></li>
+<li><a href="#git-bugreport">Git Bugreport</a> - <em>Compile bug report with system info</em></li>
+<li><a href="#git-fsck">Git Fsck</a> - <em>Verify and recover unreachable objects</em></li>
+<li><a href="#git-stripspace">Git Stripspace</a> - <em>Remove trailing whitespaces</em></li>
+<li><a href="#git-diff">Git Diff</a> - <em>Compare changes between two files</em></li>
+<li><a href="#git-hooks">Git Hooks</a> - <em>Execute script when a git command is run</em></li>
+<li><a href="#git-blame">Git Blame</a> - <em>Show who wrote a given line</em></li>
+<li><a href="#git-lfs">Git Large File Storage</a> - <em>Store big files in git</em></li>
+<li><a href="#git-gc">Git Garbage Collection</a> - <em>Optimize your git repo</em></li>
+<li><a href="#git-show">Git Show</a> - <em>Easily inspect any git object</em></li>
+<li><a href="#git-describe">Git Describe</a> - <em>Give readable name based on last tag</em></li>
+<li><a href="#git-tag">Git Tag</a> - <em>Create version tags at specific points</em></li>
+<li><a href="#git-reflog">Git Reflog</a> - <em>List all git actions made on a repo</em></li>
+<li><a href="#git-log">Git Log</a> - <em>View commit log, and branch diagrams</em></li>
+<li><a href="#git-cherry-pick">Git Cherry Pick</a> - <em>Pull a feature into your branch</em></li>
+<li><a href="#git-switch">Git Switch</a> - <em>Quickly jump between branches</em></li>
+<li><a href="#bonus">Bonus</a> - <em>Extend git with more commands!</em></li>
+</ul>
+<hr>
+<h2 id="Git-Web"><a href="#Git-Web" class="headerlink" title="Git Web"></a><a href="#git-web"></a>Git Web</h2><blockquote>
+<p>Run <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-instaweb"><code>git instaweb</code></a> to instantly browse your working repository in gitweb</p>
+</blockquote>
+<p>Git has a built-in <a target="_blank" rel="noopener" href="https://git-scm.com/docs/gitweb">web-based visualiser</a> for browsing local repositories, which lets you view and manage your repo via a GUI in the browser. It’s packed with useful features, including:</p>
+<ul>
+<li>Browsing and stepping through revisions and inspecting diffs, file contents and metadata</li>
+<li>Viewing commit logs, branches, directories, file history, and attached data visually</li>
+<li>Generating RSS or Atom feeds of commits and repository activity logs</li>
+<li>Searching commits, files, changes and diffs</li>
+</ul>
+<p>To open it, just run <code>git instaweb</code> from within your repo. Your browser should pop open, and load <code>http://localhost:1234</code>. If you don’t have Lighttpd installed, you can specify an alternative web server with the <code>-d</code> flag. Other options can be configured either via flags (like <code>-p</code> for port, <code>-b</code> for the browser to open, etc), or under the <code>[instaweb]</code> block in your git config.</p>
+<p>There’s also the <code>git gui</code> command, which can open up a GUI-based git app</p>
+<p><a target="_blank" rel="noopener" href="https://res.cloudinary.com/practicaldev/image/fetch/s--ATnCqGFm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.ibb.co/0DrmcWG/Screenshot-from-2022-12-17-20-26-30.png"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--ATnCqGFm--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.ibb.co/0DrmcWG/Screenshot-from-2022-12-17-20-26-30.png" alt="Screenshot of Git GUI"></a></p>
+<hr>
+<h2 id="Git-Notes"><a href="#Git-Notes" class="headerlink" title="Git Notes"></a><a href="#git-notes"></a>Git Notes</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-notes"><code>git notes</code></a> to add extra info to commits</p>
+</blockquote>
+<p>Sometimes you need to attach additional data to a git commit (beyond just the changes, message, date-time and author info).</p>
+<p>The notes are stored within <code>.git/refs/notes</code>, and since that’s separate from the commit object data, you can modify the notes associated with a commit at anytime, without the SHA-1 hash changing.</p>
+<p>You can view notes with <code>git log</code>, using most git GUI apps, or with the <code>git notes show</code> command. Some git hosts also show notes in the commit view (although <a target="_blank" rel="noopener" href="https://github.blog/2010-08-25-git-notes-display/">GH no longer displays notes</a>).</p>
+<hr>
+<h2 id="Git-Bisect"><a href="#Git-Bisect" class="headerlink" title="Git Bisect"></a><a href="#git-bisect"></a>Git Bisect</h2><blockquote>
+<p>With <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-bisect"><code>git bisect</code></a> you can find the commit that introduced a bug using binary search</p>
+</blockquote>
+<p>This is one of the most powerful, yet easy to use git commands- bisect is an absolute life saver when it comes to debugging. After starting a bisect, it checks out commits for you, and you tell it weather that commit is <code>good</code> (no bug), or <code>bad</code> (bug introduced), which lets you narrow down the the earliest commit where the bug is present.</p>
+<p>To get started, run <code>git bisect start</code> then pass it a known good commit with <code>git bisect good &lt;commit-hash&gt;</code> and a known bad one (defaults to current) with <code>git bisect bad &lt;optional-hash&gt;</code>. It will then checkout the commit in-between the good and bad commits, then you specify weather the bug is present with either <code>git bisect good</code> or <code>git bisect bad</code>. It will then repeat the process, checking out a commit in the center of the bad and good, all the way until you’ve found the exact commit that introduced the bug. Cancel anytime with <code>git bisect reset</code>.</p>
+<p>There’s much more to the bisect command, including replays, viewing commits, skipping, so it’s worth checking out the docs next time your debugging.</p>
+<hr>
+<h2 id="Git-Grep"><a href="#Git-Grep" class="headerlink" title="Git Grep"></a><a href="#git-grep"></a>Git Grep</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-grep"><code>git grep</code></a> to search for code, files, commits or anything else across your repo</p>
+</blockquote>
+<p>Ever find yourself needing to search for a string anywhere within a git project? With git grep you can easily search for any string, or RegEx throughout your project, and across branches (like a more powerful Ctrl + F!).</p>
+<p><code>git grep &lt;regexp&gt; &lt;ref&gt;</code></p>
+<p>It includes plenty of <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-grep#_options">options</a> to narrow down your search, or specify results format. For example, use <code>-l</code> to only return file names, <code>-c</code> to specify number of matches per file to return, <code>-e</code> to exclude results matching a condition, <code>--and</code> to specify multiple conditions, <code>-n</code> to search with line number.</p>
+<p>Since git grep is regex-compatible, you can get much more advanced with the string your searching for.<br>You can also use it to specify a file extension, like <code>git grep &#39;console.log&#39; *.js</code> which will show all console.logs from within JavaScript files</p>
+<p>The second parameter is a ref, and can be a branch name, commit, range of commits, or anything else. E.g. <code>git grep &quot;foo&quot; HEAD~1</code> will search the previous commit.</p>
+<hr>
+<h2 id="Git-Archive"><a href="#Git-Archive" class="headerlink" title="Git Archive"></a><a href="#git-archive"></a>Git Archive</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-archive"><code>git archive</code></a> to combine an entire repo into a single file</p>
+</blockquote>
+<p>When sharing or backing up a repository, it’s often preferred to store it as a single file. Using git archive will include all repo history, so it can be easily extracted back to it’s original form. The command also includes a lot of additional options, so you can customise exactly what files are and aren’t included in the archive.  </p>
+<pre><code>git archive --format=tar --output=./my-archive HEAD
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<hr>
+<h2 id="Git-Submodules"><a href="#Git-Submodules" class="headerlink" title="Git Submodules"></a><a href="#git-submodules"></a>Git Submodules</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-submodule"><code>git submodule</code></a> to pull any other repository into yours</p>
+</blockquote>
+<p>In git, <a target="_blank" rel="noopener" href="https://git-scm.com/docs/gitsubmodules">submodules</a> let you mount one repo into another, and is commonly used for core dependencies or splitting components into separate repositories. For more info, see <a target="_blank" rel="noopener" href="https://notes.aliciasykes.com/17996/quick-tip-git-submodules">this post</a>.</p>
+<p>Running the following command will pull a module into the specified location, and also create a <code>.gitmodules</code> file so that it’s always downloaded when the repo is cloned. Use the <code>--recursive</code> flag to include sub-modules when cloning the repo.  </p>
+<pre><code>git submodule add https://github.com/&lt;user&gt;/&lt;repo&gt; &lt;path/to/save/at&gt;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>There’s also <a target="_blank" rel="noopener" href="https://www.atlassian.com/git/tutorials/git-subtree"><code>git subtree</code></a>, which does a similar thing, but without the need for metadata files.</p>
+<hr>
+<h2 id="Git-Bug-Report"><a href="#Git-Bug-Report" class="headerlink" title="Git Bug Report"></a><a href="#git-bug-report"></a>Git Bug Report</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-bugreport"><code>git bugreport</code></a> to compose a bug ticket, including git and system info</p>
+</blockquote>
+<p>This command will capture system info, and then open up a standard bug template (steps to reproduce, actual + expected output, etc). The completed file should be a very complete bug report, with all necessary info captured.</p>
+<p>This is very handy if your a maintainer for an open source package and asking a user (developer) to raise a bug report, as it ensures all necessary data is included.</p>
+<p>And if you are raising a bug report to the core git system, you can also run the <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-diagnose"><code>git diagnose</code></a> command, and then raise your issue <a target="_blank" rel="noopener" href="https://github.com/git/git">here</a>.</p>
+<hr>
+<h2 id="Git-Fsck"><a href="#Git-Fsck" class="headerlink" title="Git Fsck"></a><a href="#git-fsck"></a>Git Fsck</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-fsck"><code>git fsck</code></a> to check all objects, or recover unreachable ones</p>
+</blockquote>
+<p>Although not often needed, sometimes you may have to verify the objects stored by git. This is where fsck (or File System ChecK) comes in, it tests the object database and verifies the SHA-1 ID of all objects and the connections they make.</p>
+<p>It can also be used alongside the <code>--unreachable</code> flag to find objects that are no longer reachable from any named reference (since unlike other commands, it includes everything in <code>.git/objects</code>).</p>
+<hr>
+<h2 id="Git-Stripspace"><a href="#Git-Stripspace" class="headerlink" title="Git Stripspace"></a><a href="#git-stripspace"></a>Git Stripspace</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-stripspace"><code>git stripspace</code></a> to format whitespaces within a given file</p>
+</blockquote>
+<p>Best practice is to avoid trailing whitespaces at the end of lines, avoid having multiple consecutive blank lines, avoid empty lines from beginning and end of an input, and end each file with a new line. There’s plenty of language-specific tools which do this automatically for you (like prettier), but Git also has this functionality builtin.</p>
+<p>It’s intended for metadata (commit messages, tags, branch descriptions, etc), but also works if you pipe a file to it, then pipe the response back to a file. E.g. <code>cat ./path-to-file.txt | git stripspace</code> or <code>git stripspace &lt; dirty-file.txt &gt; clean-file.txt</code></p>
+<p>You can also use this to remove comments (with <code>--strip-comments</code>), or even comment out lines (with <code>--comment-lines</code>).</p>
+<hr>
+<h2 id="Git-Diff"><a href="#Git-Diff" class="headerlink" title="Git Diff"></a><a href="#git-diff"></a>Git Diff</h2><blockquote>
+<p>With <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-diff"><code>git diff</code></a> you can compare the difference between 2 sets of code</p>
+</blockquote>
+<p>You’re probably aware that you you can run <code>git diff</code> to show all changes since the last commit, or use <code>git diff &lt;commit-sha&gt;</code> to compare either 2 commits, or 1 commit to the HEAD. But there’s much more you can do with the diff command.</p>
+<p>You can also use it to compare any two arbitrary files, with <code>diff file-1.txt file-2.txt</code> (no more visiting <a target="_blank" rel="noopener" href="https://www.diffchecker.com/compare/">diffchecker.com</a>!)</p>
+<p>Or compare 2 branches, or refs with each other, using <code>git diff branch1..branch2</code></p>
+<p>Note that a double dot (<code>..</code>) is the same as a space and indicates the diff input should be the tip of the branches, but you can also use a triple dot (<code>...</code>) to convert the first parameter into a ref of the shared common ancestor commit between the two diff inputs - very useful! If you want to only compare a single file across branches, just pass the files name in as the third argument.</p>
+<p>You may want to see all changes made within a given date range, for this use <code>git diff HEAD@&#123;7.day.ago&#125; HEAD@&#123;0&#125;</code> (for the last week), again this can be paired up with a filename, branch names, specific commits or any other ref.</p>
+<p>There’s also the <a target="_blank" rel="noopener" href="https://www.git-scm.com/docs/git-range-diff"><code>git range-diff</code></a> command, which provides a simple interface for comparing commit ranges.</p>
+<p>There’s much more to the git diff tool (as well as the option of using your own diff checker), so I recommend checking out <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-diff#_description">the docs</a>.</p>
+<hr>
+<h2 id="Git-Hooks"><a href="#Git-Hooks" class="headerlink" title="Git Hooks"></a><a href="#git-hooks"></a>Git Hooks</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/githooks"><code>hooks</code></a> to execute command or run scripts when a given get action occurs</p>
+</blockquote>
+<p>Hooks let you automate pretty much anything. For example: ensuring standards are met (commit message, branch name, patch size), code quality (tests, lint), appending additional info to a commit (user, device, ticket ID), calling a webhook to record an event or run a pipeline, etc.</p>
+<p>There’s pre and post <a target="_blank" rel="noopener" href="https://git-scm.com/docs/githooks">hooks available</a> for most git events, like commit, rebase, merge, push, update, applypatch, etc.</p>
+<p>Hooks are stored in <code>.git/hooks</code> (unless you configure them elsewhere with <code>git config core.hooksPath</code>), and can be tested with the <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-hook"><code>git hook</code></a> command. Since they’re just shell files, they can be used to run any command.</p>
+<p>Hooks aren’t pushed to the remote repository, so to share and manage them across your team, you’ll need to use a <a target="_blank" rel="noopener" href="https://github.com/aitemr/awesome-git-hooks#tools">hook manager</a>, like <a target="_blank" rel="noopener" href="https://github.com/evilmartians/lefthook">lefthook</a> or <a target="_blank" rel="noopener" href="https://github.com/typicode/husky">husky</a>. There’s also several <a target="_blank" rel="noopener" href="https://githooks.com/#projects">3rd-party tools</a>, which make managing hooks easier, I recommend <a target="_blank" rel="noopener" href="https://github.com/sds/overcommit">overcommit</a>.</p>
+<p>Remember, hooks can always be skipped (with the <code>--no-verify</code> flag), so never rely purely on hooks, especially for anything security related.</p>
+<hr>
+<h2 id="Git-Blame"><a href="#Git-Blame" class="headerlink" title="Git Blame"></a><a href="#git-blame"></a>Git Blame</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-blame"><code>git blame</code></a> to show author info for a specific revision and line</p>
+</blockquote>
+<p>A classic, quickly find out who wrote a specific line of code (aka which of your co-workers to blame for the bug!). But it’s also useful to determine at which point in time something changed and inspect that commit and associated metadata.</p>
+<p>For example, to view author and commit info for line 400 to 420 of index.rs, you’d run:  </p>
+<pre><code>git blame -L 400,420 index.rs
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<hr>
+<h2 id="Git-LFS"><a href="#Git-LFS" class="headerlink" title="Git LFS"></a><a href="#git-lfs"></a>Git LFS</h2><blockquote>
+<p>Store large files using <a target="_blank" rel="noopener" href="https://git-lfs.github.com/"><code>git lfs</code></a> to not bog down your repo</p>
+</blockquote>
+<p>Often your project will contain larger files (such as databases, binary assets, archives or media files), which would slow down the git workflow and max out usage limits. That’s where <a target="_blank" rel="noopener" href="https://git-lfs.github.com/">Large File Storage</a> comes in - it enables you to store these large assets elsewhere, while keeping them trackable with git and maintaining the same access controls&#x2F; permissions. LFS works by replacing these larger files with text pointers that are tracked within git.</p>
+<p>To use it, just run <code>git lfs track &lt;file glob&gt;</code>, which will update your <code>.gitattributes</code> file. You can specify files by their extension (e.g. <code>*.psd</code>), directory, or individually. Running <code>git lfs ls-files</code> to view a list of tracked LFS files.</p>
+<hr>
+<h2 id="Git-GC"><a href="#Git-GC" class="headerlink" title="Git GC"></a><a href="#git-gc"></a>Git GC</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-gc"><code>git gc</code></a> to optimize your repository</p>
+</blockquote>
+<p>Over time git repos accumulate various types of garbage, which take up disk space, and slow down actions. That’s where the built-in garbage collector comes in. Running <code>git gc</code> will remove orphaned and inaccessible commits (with <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-prune"><code>git prune</code></a>), compress file revisions and stored git objects, as well as some other general house keeping tasks like packing refs, pruning reflog, revere metadata or stale working trees and updating indexes.</p>
+<p>Adding the <code>--aggressive</code> flag will <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-gc#_aggressive">aggressively optimize</a> the repository, throwing away any existing deltas and re-computing them, this takes much longer to run but may be needed if you’ve got a large repository.</p>
+<hr>
+<h2 id="Git-Show"><a href="#Git-Show" class="headerlink" title="Git Show"></a><a href="#git-show"></a>Git Show</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-show"><code>git show</code></a> to easily inspect any git object</p>
+</blockquote>
+<p>Outputs objects (blobs, treees, tags or commits) in an easily readable form. To use, just run <code>git show &lt;object&gt;</code>. You’ll likely also want to append the <code>--pretty</code> flag, for a clearer output, but there’s many other options available to customize the output (with <code>--format</code>), so this command can be extremely powerful for displaying exactly what you need.</p>
+<p>An instance that this is very useful for, is previewing a file in another branch, without switching branches. Just run <code>git show branch:file</code></p>
+<hr>
+<h2 id="Git-Describe"><a href="#Git-Describe" class="headerlink" title="Git Describe"></a><a href="#git-describe"></a>Git Describe</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-describe"><code>git describe</code></a> to find the latest tag reachable from a commit, and give it a human-readable name</p>
+</blockquote>
+<p>Run <code>git describe</code> and you’ll see a human-readable string made from combining the last tag name, with the current commit, to generate a string. You can also pass a specific tag to it,</p>
+<p>Note that you must have created tags for this to work, unless you append the <code>--all</code> flag. Git describe will also only use annotated tags by default, so you must specify the <code>--tags</code> flag to make it use lightweight tags as well.</p>
+<hr>
+<h2 id="Git-Tag"><a href="#Git-Tag" class="headerlink" title="Git Tag"></a><a href="#git-tag"></a>Git Tag</h2><blockquote>
+<p>Tag a specific point in your repo’s history using <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-tag"><code>git tag</code></a></p>
+</blockquote>
+<p>It’s often useful to be able to <a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tag</a> specific, important points in a repository’s history most commonly used to denote versions of releases. Creating a tag is as simple as <code>git tag &lt;tagname&gt;</code>, or you can tag a historical commit with <code>git tag -a v4.2.0 &lt;commit sha&gt;</code>. Like with commits, you can include a message alongside a tag, using <code>-m</code>.</p>
+<p>Don’t forget to push your tag to remote, with <code>git push origin &lt;tagname&gt;</code>.<br>To list all tags, just run <code>git tag</code>, and optionally use <code>-l</code> for a wildcard search.<br>You’ll then be able to checkout a specific tag, with <code>git checkout &lt;tagname&gt;</code></p>
+<hr>
+<h2 id="Git-Reflog"><a href="#Git-Reflog" class="headerlink" title="Git Reflog"></a><a href="#git-reflog"></a>Git Reflog</h2><blockquote>
+<p>List all updates made on your repo using <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-reflog"><code>git reflog</code></a></p>
+</blockquote>
+<p>Git keeps track of updates to the tip of branches using a mechanism called reference logs, or “reflogs”. Various events are tracked, including: clone, pull, push, commit, checkout and merge. It’s often useful to be able to find an events reference, as many commands accept a ref as a parameter. Just run <code>git reflog</code> to view recent events on <code>HEAD</code>.</p>
+<p>One thing that reflog is really useful for is recovering lost commits. Git never really loses anything, even when rewriting history (like rebasing or commit amending). Reflog allows you to go back to commits even though they are not referenced by any branch or tag.</p>
+<p>By default reflog uses <code>HEAD</code> (your current branch), but you can run reflog on any ref. For example <code>git reflog show &lt;branch name&gt;</code>, or to see stashed changes with <code>git reflog stash</code>. Or show all references with <code>git reflog show --all</code></p>
+<hr>
+<h2 id="Git-Log"><a href="#Git-Log" class="headerlink" title="Git Log"></a><a href="#git-log"></a>Git Log</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-log"><code>git log</code></a> to view a list of commits</p>
+</blockquote>
+<p>You’re likely already familiar with running <code>git log</code> to view a list of recent commits on your current branch. But there’s a few things more you can do with git log.</p>
+<p>Using <code>git log --graph --decorate --oneline</code> will show a nice neat commit graph along with ref pointers.</p>
+<p><a target="_blank" rel="noopener" href="https://res.cloudinary.com/practicaldev/image/fetch/s--EtfqYNeJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.ibb.co/c1WByg8/Screenshot-from-2022-12-17-20-43-56.png"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--EtfqYNeJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://i.ibb.co/c1WByg8/Screenshot-from-2022-12-17-20-43-56.png" alt="example git log output"></a></p>
+<p>You also often need to be able to filter logs based on various parameters, the most useful of which are:</p>
+<ul>
+<li><code>git log --search=&quot;&lt;anything&gt;&quot;</code> - Search logs for specific code changes</li>
+<li><code>git log --author=&quot;&lt;pattern&gt;&quot;</code> - Show log only for specific author(s)</li>
+<li><code>git log --grep=&quot;&lt;pattern&gt;&quot;</code> - Filter log using search term or regex</li>
+<li><code>git log &lt;since&gt;..&lt;until&gt;</code> - Show all commits between two references</li>
+<li><code>git log -- &lt;file&gt;</code> - Show all commits made only to a specific file</li>
+</ul>
+<p>Or, just run <code>git shortlog</code> for a summerized list of commits.</p>
+<hr>
+<h2 id="Git-Cherry-Pick"><a href="#Git-Cherry-Pick" class="headerlink" title="Git Cherry Pick"></a><a href="#git-cherry-pick"></a>Git Cherry Pick</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-cherry-pick"><code>git cherry-pick</code></a> to pick specified commit(s) by reference and append them to the working HEAD</p>
+</blockquote>
+<p>Sometimes you need to pull a specific commit from elsewhere, into your current branch. This can be very useful for applying hot fixes, undoing changes, restoring lost commits and in certain team collaboration settings. Note that often traditional merges are better practice, since cherry picking commits can cause duplicate commits in the log.</p>
+<p>Usage is straightforward, just run <code>git cherry-pick &lt;commit-hash&gt;</code>. This will pull the specified commit into your current branch.</p>
+<hr>
+<h2 id="Git-Switch"><a href="#Git-Switch" class="headerlink" title="Git Switch"></a><a href="#git-switch"></a>Git Switch</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://git-scm.com/docs/git-switch"><code>git switch</code></a></p>
+</blockquote>
+<p>Moving between branches is something that we do often, the <code>switch</code> command is like a simplified version of <code>git checkout</code>, it can be used to create and navigate between branches, but unlike checkout does not copy modified files when you move between branches.</p>
+<p>Similar to <code>checkout -b</code>, with the switch command you can append the <code>-c</code> flag to create a new branch, and jump strait into it, e.g. <code>git switch -c &lt;new branch&gt;</code>. And running <code>git switch -</code> will discard any experimental changes you’ve made, and return you to your previous branch.</p>
+<hr>
+<h2 id="Git-Standup"><a href="#Git-Standup" class="headerlink" title="Git Standup"></a><a href="#git-standup"></a>Git Standup</h2><blockquote>
+<p>Use <a target="_blank" rel="noopener" href="https://github.com/kamranahmedse/git-standup"><code>git standup</code></a> to recall what you did on the last working day , based on git commits</p>
+</blockquote>
+<p>I’ve put this one at the end, as it’s not included with most git clients, but you can <a target="_blank" rel="noopener" href="https://github.com/kamranahmedse/git-standup#install">easily install it</a> either with your systems package manager, using a 1-line curl script, or by building from source.</p>
+<p>If your boss requires you do a daily standup, to give updates on yesterdays work, but you can never remember what you actually did - this one is for you! It’ll show a nicely formatted list of everything done in a given time frame. Usage is simple, just run <code>git standup</code>, or use <a target="_blank" rel="noopener" href="https://github.com/kamranahmedse/git-standup#options">these options</a> to specify what data should be shown (author, timeframe, branches, etc.</p>
+<hr>
+<h2 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus"></a><a href="#bonus"></a>Bonus</h2><p>Git can be easily extended with add-ons, to add extra commands that do useful tasks. One of the most complete extensions is <a target="_blank" rel="noopener" href="https://github.com/tj/git-extras/blob/master/Commands.md">git-extras</a> by <a target="_blank" rel="noopener" href="https://github.com/tj">@tj</a>. It gives you 70+ <a target="_blank" rel="noopener" href="https://github.com/tj/git-extras/blob/master/Commands.md">extra commands</a> to automate common git jobs.</p>
+<p>For a list of more useful git add-ons, see <a target="_blank" rel="noopener" href="https://github.com/stevemao/awesome-git-addons">stevemao&#x2F;awesome-git-addons</a>.</p>
+<p>If you’re working with GitHub repos, then the <a target="_blank" rel="noopener" href="https://cli.github.com/">GitHub CLI</a> let’s you do common tasks (managing PRs, issues, code reviews, etc) from the command line.</p>
+<hr>
+<p>If you like this kind of stuff,<br>consider following for more :)</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Lissy93"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--8_HGggCT--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://img.shields.io/badge/-Lissy93-3a3a3a%3Fstyle%3Dflat%26logo%3DGitHub%26logoColor%3Dwhite" alt="Follow Lissy93 on GitHub"></a><a target="_blank" rel="noopener" href="https://twitter.com/Lissy_Sykes"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--BhCWBIgy--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://img.shields.io/badge/-%40Lissy_Sykes-00acee%3Fstyle%3Dflat%26logo%3DTwitter%26logoColor%3Dwhite" alt="Follow Lissy_Sykes on Twitter"></a></p>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2022/12/19/react/" title="React.js - Custom Hooks"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: React.js - Custom Hooks</span></a><a class="button is-default" href="/2022/12/17/typescript/" title="5 Reasons Why Every React Developer Should Learn TypeScript"><span class="has-text-weight-semibold">Next: 5 Reasons Why Every React Developer Should Learn TypeScript</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Phantasm0009/lol" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com/Phantasm0006"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Phantasm0009"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//aditya_14_tiwari"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Aditya 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span>hi</span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

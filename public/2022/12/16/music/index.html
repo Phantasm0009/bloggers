@@ -1,0 +1,264 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>Building a Music Player in React</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+IntroductionWhoever is learning React and wants to build a project with React. There are a variety of blogs and articles to guide a such projects for developers. I do go through those articles but one kind of project is always missing in them. The missing projects are the music player and video player. Both of the projects will give you the opportunity to.."><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Aditya's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Building a Music Player in React</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Prerequisite-and-Setting-up-the-Environment"><span class="toc-text">Prerequisite and Setting up the Environment</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dependencies"><span class="toc-text">Dependencies</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Player-js"><span class="toc-text">Player.js</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Imports"><span class="toc-text">Imports</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Playing-and-Pausing-the-audio"><span class="toc-text">Playing and Pausing the audio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Adding-audio-timeline-with-the-current-time-and-duration-of-the-audio"><span class="toc-text">Adding audio timeline with the current time and duration of the audio</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Output"><span class="toc-text">Output</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Additional-Features"><span class="toc-text">Additional Features</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Conclusion"><span class="toc-text">Conclusion</span></a></li></ol></div><div class="column is-9"><header class="my-4"><a href="/tags/React"><i class="tag post-item-tag">React</i></a><a href="/tags/Javascript"><i class="tag post-item-tag">Javascript</i></a><a href="/tags/Html"><i class="tag post-item-tag">Html</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">Building a Music Player in React</h1><time class="has-text-grey" datetime="2022-12-16T20:06:24.000Z">2022-12-16</time><article class="mt-2 post-content"><p><img src="/images/music.webp" alt="$cover"></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a><a href="#introduction"></a>Introduction</h1><p>Whoever is learning React and wants to build a project with React. There are a variety of blogs and articles to guide a such projects for developers. I do go through those articles but one kind of project is always missing in them. The missing projects are the music player and video player. Both of the projects will give you the opportunity to handle audio and video. You will learn many things such as handling audio for playing and pausing audio.</p>
+<p>Today, we are going to build a music player in React. We will look into the following topics:</p>
+<ul>
+<li>Setting up the environment</li>
+<li>Playing&#x2F;Pausing audio</li>
+<li>Handling time of audio(In term of current time and complete duration of audio)</li>
+<li>Adding a range slider for the timeline of audio</li>
+</ul>
+<p>After completing the project, our music player will look like this.</p>
+<p>GIF</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--sHfL5Oxg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ai4g1rt3oc5y819inkje.gif" alt="React Music Player"></p>
+<p>If this excites you then let’s get started.</p>
+<h1 id="Prerequisite-and-Setting-up-the-Environment"><a href="#Prerequisite-and-Setting-up-the-Environment" class="headerlink" title="Prerequisite and Setting up the Environment"></a><a href="#prerequisite-and-setting-up-the-environment"></a>Prerequisite and Setting up the Environment</h1><p>I assume that you have knowledge about the following technologies as prerequisite:</p>
+<ul>
+<li>JavaScript</li>
+<li>HTML&#x2F;CSS</li>
+<li>Basic React</li>
+</ul>
+<p>The environment setup is easy. You should have <a target="_blank" rel="noopener" href="https://nodejs.org/en/">node.js</a> pre-installed for running the node related command in the terminal.</p>
+<p>Navigate to the directory in which you want to create the project. Now, run the terminal and enter the below command to install react project.  </p>
+<pre><code>npx create-react-app react-music-player
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Remove all the boilerplate and unnecessary code. We are now good to go.</p>
+<h1 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a><a href="#dependencies"></a>Dependencies</h1><p>We need to install the following libraries to our project:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/use-sound">use-sound</a>: This will handle the audio file. It will load, play, and pause the audio along with other features.</li>
+</ul>
+<p>Install with the below command:  </p>
+<pre><code>npm i use-sound
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://react-icons.github.io/react-icons/">react-icons</a>: For adding icons of play, pause, next and previous into our player.</li>
+</ul>
+<p>Install it with the below command:  </p>
+<pre><code>npm i react-icons
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<h1 id="Player-js"><a href="#Player-js" class="headerlink" title="Player.js"></a><a href="#playerjs"></a>Player.js</h1><p>Create a <code>component</code> directory in the <code>src</code> folder. Inside that create a component with the name <code>Player.js</code>. This component will be our music player.</p>
+<h2 id="Imports"><a href="#Imports" class="headerlink" title="Imports"></a><a href="#imports"></a>Imports</h2><p>As per the library to import in the file. You can look at it here:  </p>
+<pre><code>import &#123; useEffect, useState &#125; from &quot;react&quot;; 
+import useSound from &quot;use-sound&quot;; // for handling the sound
+import qala from &quot;../assets/qala.mp3&quot;; // importing the music
+import &#123; AiFillPlayCircle, AiFillPauseCircle &#125; from &quot;react-icons/ai&quot;; // icons for play and pause
+import &#123; BiSkipNext, BiSkipPrevious &#125; from &quot;react-icons/bi&quot;; // icons for next and previous track
+import &#123; IconContext &#125; from &quot;react-icons&quot;; // for customazing the icons
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>You can look into comments for the explanation of the imports.</p>
+<h2 id="Playing-and-Pausing-the-audio"><a href="#Playing-and-Pausing-the-audio" class="headerlink" title="Playing and Pausing the audio"></a><a href="#playing-and-pausing-the-audio"></a>Playing and Pausing the audio</h2><p>Let’s implement the mandatory feature of the player which is playing and pausing the audio.</p>
+<p>At the top, we have a <code>isPlaying</code> state for storing the current status of the player. This will be helpful in conditional rendering the play&#x2F;pause icon according the status of the player.  </p>
+<pre><code>const [isPlaying, setIsPlaying] = useState(false);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>We need to initialize the <code>useSound</code> with audio. It will return the play, pause, duration, and sound method.  </p>
+<pre><code>const [play, &#123; pause, duration, sound &#125;] = useSound(qala);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p><code>play</code> and <code>pause</code> is for playing and pausing the audio. <code>duration</code> is for the length of the track in milliseconds. <code>sound</code> will provide us with the <a target="_blank" rel="noopener" href="https://github.com/goldfire/howler.js">howler.js</a> method for the sound.</p>
+<p>Create a function for handling the play and pause buttons. Here is the code for it.  </p>
+<pre><code>  const playingButton = () =&gt; &#123;
+    if (isPlaying) &#123;
+      pause(); // this will pause the audio
+      setIsPlaying(false);
+    &#125; else &#123;
+      play(); // this will play the audio
+      setIsPlaying(true);
+    &#125;
+  &#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Now, it’s time to add the UI component of the player into the <code>return</code>. Here is the code for it.  </p>
+<pre><code>  return (
+    &lt;div className=&quot;component&quot;&gt;
+      &lt;h2&gt;Playing Now&lt;/h2&gt;
+      &lt;img
+        className=&quot;musicCover&quot;
+        src=&quot;https://picsum.photos/200/200&quot;
+      /&gt;
+      &lt;div&gt;
+        &lt;h3 className=&quot;title&quot;&gt;Rubaiyyan&lt;/h3&gt;
+        &lt;p className=&quot;subTitle&quot;&gt;Qala&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;button className=&quot;playButton&quot;&gt;
+          &lt;IconContext.Provider value=&#123;&#123; size: "3em", color: "#27AE60" &#125;&#125;&gt;
+            &lt;BiSkipPrevious /&gt;
+          &lt;/IconContext.Provider&gt;
+        &lt;/button&gt;
+        &#123;!isPlaying ? (
+          &lt;button className=&quot;playButton&quot; onClick=&#123;playingButton&#125;&gt;
+            &lt;IconContext.Provider value=&#123;&#123; size: "3em", color: "#27AE60" &#125;&#125;&gt;
+              &lt;AiFillPlayCircle /&gt;
+            &lt;/IconContext.Provider&gt;
+          &lt;/button&gt;
+        ) : (
+          &lt;button className=&quot;playButton&quot; onClick=&#123;playingButton&#125;&gt;
+            &lt;IconContext.Provider value=&#123;&#123; size: "3em", color: "#27AE60" &#125;&#125;&gt;
+              &lt;AiFillPauseCircle /&gt;
+            &lt;/IconContext.Provider&gt;
+          &lt;/button&gt;
+        )&#125;
+        &lt;button className=&quot;playButton&quot;&gt;
+          &lt;IconContext.Provider value=&#123;&#123; size: "3em", color: "#27AE60" &#125;&#125;&gt;
+            &lt;BiSkipNext /&gt;
+          &lt;/IconContext.Provider&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>For the cover image, I have used the <a target="_blank" rel="noopener" href="https://picsum.photos/">Loren Picsum</a> for generating a random image.</p>
+<p>You can look here for the CSS of the file:  </p>
+<pre><code>body &#123;
+  background-color: #e5e5e5;
+&#125;
+
+.App &#123;
+  font-family: sans-serif;
+  text-align: center;
+&#125;
+
+.component &#123;
+  background-color: white;
+  width: 25%;
+  max-width: 600px;
+  margin: 1em auto;
+  padding-bottom: 2em;
+  border: 0.1px solid black;
+  border-radius: 10px;
+&#125;
+
+.musicCover &#123;
+  border-radius: 10%;
+&#125;
+
+.playButton &#123;
+  background: none;
+  border: none;
+  align-items: center;
+  justify-content: center;
+&#125;
+
+.subTitle &#123;
+  margin-top: -1em;
+  color: #4f4f4f;
+&#125;
+
+.time &#123;
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  color: #828282;
+  font-size: smaller;
+&#125;
+
+.timeline &#123;
+  width: 80%;
+  background-color: #27ae60;
+&#125;
+
+input[type=&quot;range&quot;] &#123;
+  background-color: #27ae60;
+&#125;
+
+@media (max-width: 900px) &#123;
+  .component &#123;
+    width: 50%;
+  &#125;
+&#125;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Run the react server. If everything goes well you will be able to see the below screen.</p>
+<p><a target="_blank" rel="noopener" href="https://res.cloudinary.com/practicaldev/image/fetch/s--DL94VPQb--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vi5q1apc13fsx3pcn0cp.png"><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--DL94VPQb--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vi5q1apc13fsx3pcn0cp.png" alt="Screenshot - React Music Player"></a></p>
+<p>Click on the play button to play the audio.</p>
+<h2 id="Adding-audio-timeline-with-the-current-time-and-duration-of-the-audio"><a href="#Adding-audio-timeline-with-the-current-time-and-duration-of-the-audio" class="headerlink" title="Adding audio timeline with the current time and duration of the audio"></a><a href="#adding-audio-timeline-with-the-current-time-and-duration-of-the-audio"></a>Adding audio timeline with the current time and duration of the audio</h2><p>Now, let’s add the timeline to the player. The timeline will controllable by the user. Any changes to it will change the audio’s current position.</p>
+<p>Let’s look into the state that we are using. You see the comments for an explanation of each state.  </p>
+<pre><code>  const [currTime, setCurrTime] = useState(&#123;
+    min: &quot;&quot;,
+    sec: &quot;&quot;,
+  &#125;); // current position of the audio in minutes and seconds
+
+  const [seconds, setSeconds] = useState(); // current position of the audio in seconds
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>We are grabbing the duration props from the <code>useSound</code>. As the duration is provided in milliseconds, we have converted it into minutes and seconds.  </p>
+<pre><code>useEffect(() =&gt; &#123;
+  const sec = duration / 1000;
+  const min = Math.floor(sec / 60);
+  const secRemain = Math.floor(sec % 60);
+  const time = &#123;
+    min: min,
+    sec: secRemain
+  &#125;;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Now, for the current position of the audio, we have the <code>sound.seek([])</code> method. We are running this function every second to change the current position of the audio. After getting the position of the audio which is in seconds. We are converting it into minutes and seconds. After converting, we are setting the state with the current value. Here is the code for it.  </p>
+<pre><code>useEffect(() =&gt; &#123;
+    const interval = setInterval(() =&gt; &#123;
+      if (sound) &#123;
+        setSeconds(sound.seek([])); // setting the seconds state with the current state
+        const min = Math.floor(sound.seek([]) / 60);
+        const sec = Math.floor(sound.seek([]) % 60);
+        setCurrTime(&#123;
+          min,
+          sec,
+        &#125;);
+      &#125;
+    &#125;, 1000);
+    return () =&gt; clearInterval(interval);
+  &#125;, [sound]);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Now for the return. Here is the code.  </p>
+<pre><code>      &lt;div&gt;
+        &lt;div className=&quot;time&quot;&gt;
+          &lt;p&gt;
+            &#123;currTime.min&#125;:&#123;currTime.sec&#125;
+          &lt;/p&gt;
+          &lt;p&gt;
+            &#123;time.min&#125;:&#123;time.sec&#125;
+          &lt;/p&gt;
+        &lt;/div&gt;
+        &lt;input
+          type=&quot;range&quot;
+          min=&quot;0&quot;
+          max=&#123;duration / 1000&#125;
+          default=&quot;0&quot;
+          value=&#123;seconds&#125;
+          className=&quot;timeline&quot;
+          onChange=&#123;(e) =&gt; &#123;
+            sound.seek([e.target.value]);
+          &#125;&#125;
+        /&gt;
+      &lt;/div&gt;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>The value of the range input is the <code>second</code> state. It will provide us with the current position of the audio. On change in the range by the user. We are calling the <code>soud.seek()</code> method to change the current position of the audio.</p>
+<h1 id="Output"><a href="#Output" class="headerlink" title="Output"></a><a href="#output"></a>Output</h1><p>After successfully completing the project, you will be able to see the below output.</p>
+<p>GIF</p>
+<p><img src="https://res.cloudinary.com/practicaldev/image/fetch/s--sHfL5Oxg--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ai4g1rt3oc5y819inkje.gif" alt="Image description"></p>
+<blockquote>
+<p>Note: The music is coming into my speaker.</p>
+</blockquote>
+<p>I have created a codesandbox. You can look at it for the complete project with code and the output.</p>
+<blockquote>
+<p>Note: The song that I used is <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=wEkMPeP50Ss">Rubaaiyaan</a> from Qala. All credit to the creator.</p>
+</blockquote>
+<h1 id="Additional-Features"><a href="#Additional-Features" class="headerlink" title="Additional Features"></a><a href="#additional-features"></a>Additional Features</h1><p>You can work on the music player to add more features such as:</p>
+<ul>
+<li>It currently plays one song and loads many songs into it. Use the next and the previous icons for changing audio.</li>
+<li>Change the name and album of the audio as per the song.</li>
+<li>Add more features that you wish a music player should have.</li>
+</ul>
+<h1 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a><a href="#conclusion"></a>Conclusion</h1><p>We have created our own music player. This project will help you in handling audio files in React. We have added features of play and pause with the function. Also added an audio timeline with the range input. Users can change the current position of the audio with the timeline. Feel free to add more features to the project.</p>
+<p>I hope this project has helped you in understanding a method of handling music in React. Let me know in the comment if you want a video player tutorial too. Thanks for reading the blog post.</p>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2022/12/16/todo/" title="How to Build a Todo App With React and Firebase Database"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: How to Build a Todo App With React and Firebase Database</span></a><a class="button is-default" href="/2022/12/16/vue-js/" title="VueJS vs ReactJS"><span class="has-text-weight-semibold">Next: VueJS vs ReactJS</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Phantasm0009/lol" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com/Phantasm0006"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Phantasm0009"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//aditya_14_tiwari"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Aditya 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span>hi</span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>

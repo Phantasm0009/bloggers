@@ -1,0 +1,106 @@
+<!DOCTYPE html><html class="appearance-auto" lang="en"><head><meta charset="UTF-8"><title>How to Create a Google Maps Clone Using OpenStreetMap API</title><meta name="description" content="May the Force be with you"><meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, initial-scale=1"><!-- Google Analytics --><!-- End Google Analytics -->
+<!-- Baidu Analytics --><!-- End Baidu Analytics --><link rel="icon" href="/images/favicon.ico"><link rel="stylesheet" href="/style/common/bulma.css"><link rel="stylesheet" href="/style/base.css"><link rel="stylesheet" href="/style/common/helper.css"><script src="/js/common.js"></script><link rel="stylesheet" href="/style/post.css"><link rel="stylesheet" href="/style/themes/highlight-theme-light.css"><link rel="stylesheet" href="/style/common/jquery.fancybox.min.css"><script src="/js/highlight.pack.js"></script><meta name="description" content="
+Recently, I have been interested in making some projects such as a MERN stack Zillow clone, or a Django travel booking site. However, in researching the tools needed to create both of these, one critical piece was always too expensive: the google maps api. This API is billed per request, so if you are attaching it to a client application that end users ca.."><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head><body class="is-flex is-flex-direction-column"><header class="header-widget is-flex-shrink-0 is-hidden-mobile"><div class="container is-fullhd is-flex is-justify-content-space-between is-align-items-center is-full-height"><section class="is-hidden-mobile is-flex-shrink-0"><h2><a href="/">Aditya's blog</a></h2></section><h3 class="is-hidden-mobile is-family-serif is-full-height is-flex is-align-items-center is-flex-shrink-0"><div class="is-full-height" id="postTopic"><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">How to Create a Google Maps Clone Using OpenStreetMap API</p><p class="is-full-height is-flex-shrink-0 is-flex is-align-items-center is-justify-content-center">Click back to the top</p></div></h3><aside class="is-flex-shrink-0"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></aside></div></header><header class="is-flex header-widget is-flex-shrink-0 is-align-items-center is-justify-content-center is-hidden-tablet"><h3 class="is-inline-block"><a href="/">Home</a></h3><h3 class="is-inline-block"><a href="/about">About</a></h3><h3 class="is-inline-block"><a href="/archives">Archives</a></h3></header><main><main class="container is-max-widescreen content section post-page pt-4 px-4"><div class="columns is-flex-desktop is-justify-content-center is-flex-direction-row-reverse"><div class="column is-3 is-hidden-mobile is-hidden"></div><div class="column is-9"><header class="my-4"><a href="/tags/API"><i class="tag post-item-tag">API</i></a><a href="/tags/Node.js"><i class="tag post-item-tag">Node.js</i></a></header><h1 class="mt-0 mb-1 is-family-serif" id="postTitle">How to Create a Google Maps Clone Using OpenStreetMap API</h1><time class="has-text-grey" datetime="2022-12-17T16:11:14.000Z">2022-12-17</time><article class="mt-2 post-content"><p><img src="/images/maps.webp" alt="$cover"></p>
+<p>Recently, I have been interested in making some projects such as a MERN stack Zillow clone, or a Django travel booking site. However, in researching the tools needed to create both of these, one critical piece was always too expensive: the google maps api. This API is billed per request, so if you are attaching it to a client application that end users can interact with, this will potentially drain your bank account (without proper captcha &amp; security). The solution to this, instead, is to use a free and open source location data API. You can also follow along with this guide with the full Github <a target="_blank" rel="noopener" href="https://github.com/brandonbyr4/maps-clone">source code</a>.</p>
+<p><strong>What we are building</strong><br>Instead of relying on a paid service, this project uses completely free tools. It is built with the following.</p>
+<ul>
+<li>Node.js</li>
+<li>Express.js (server)</li>
+<li>EJS (JavaScript templates)</li>
+<li>OpenStreetMap (Location data API)</li>
+<li>Leaflet.js (Interactive map widget)</li>
+</ul>
+<p><strong>Getting started</strong><br>To start, create a new folder, and open a command line in the directory. From there, initialize a new npm &#x2F; node.js project.  </p>
+<pre><code>npm init
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Now, install the required dependencies. We are using express for the web server and EJS (JavaScript HTML templates) for the frontend. Also install nodemon so we don’t have to refresh the server after every change.  </p>
+<pre><code>npm install express ejs
+npm install --save-dev nodemon
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Lastly, open package.json and replace “scripts” with the following.  </p>
+<pre><code>&quot;scripts&quot;: &#123;
+    &quot;dev&quot;: &quot;nodemon server.js&quot;,
+    &quot;start&quot;: &quot;node server.js&quot;
+ &#125;,
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p><strong>Building the server</strong><br>Now, we are ready to build the express.js server to render our site. Copy and paste the following into a new file in the root of your project named “server.js”.  </p>
+<pre><code>const express = require(&quot;express&quot;);
+const app = express()
+
+app.set(&quot;view engine&quot;, &quot;ejs&quot;)
+app.use(express.urlencoded(&#123; extended: false &#125;))
+app.use(express.static(__dirname + &#39;/static&#39;));
+
+app.get(&quot;/&quot;, (req, res) =&gt; &#123;
+    res.render(&#39;index&#39;)
+&#125;)
+
+app.listen(process.env.PORT || 8000)
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>This gives us a basic express server that renders our index page. It is also setup to load CSS, images, and JavaScript from a folder named “static” in the root as well.</p>
+<p><strong>Adding the frontend</strong><br>Our web server should be running, however, there is no index file to render yet. Create a file named “index.ejs” inside a new folder named “views”. Then, type “!” and hit enter (if your using VS code) to create a new HTML file. Paste the following into the body of your HTML file.  </p>
+<pre><code>&lt;div class=&quot;map-container&quot;&gt;
+    &lt;header&gt;
+        &lt;form id=&quot;search-form&quot; class=&quot;nav-bar&quot;&gt;
+            &lt;h1 class=&quot;nav-logo&quot;&gt;
+                Maps Clone
+            &lt;/h1&gt;
+            &lt;input type=&quot;text&quot; class=&quot;search&quot; name=&quot;searchTerm&quot; required /&gt;
+            &lt;button type=&quot;submit&quot; class=&quot;submit-btn&quot;&gt;
+                Search    
+            &lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/header&gt;
+    &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Lastly, we need to add some basic styling. Create a file named “style.css” in &#x2F;static&#x2F;css. Then, import your style sheet, and paste in <a target="_blank" rel="noopener" href="https://github.com/brandonbyr4/maps-clone/blob/main/static/css/style.css">these styles</a> from the <a target="_blank" rel="noopener" href="https://github.com/brandonbyr4/maps-clone">Github reposory</a>.</p>
+<p><strong>Adding the map</strong><br>We have an HTML div element with an id of map, but there is no actual map being rendered yet. To render the map, paste the CSS and script import for leaflet JS into the head of index.ejs.  </p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.9.3/dist/leaflet.css&quot; integrity=&quot;sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=&quot; crossorigin=&quot;&quot; /&gt;
+&lt;script src=&quot;https://unpkg.com/leaflet@1.9.3/dist/leaflet.js&quot; integrity=&quot;sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=&quot; crossorigin=&quot;&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>Last but not least, paste the following code into a new JavaScript file in &#x2F;static&#x2F;js&#x2F;maplogic.js.  </p>
+<pre><code>var map = L.map(&#39;map&#39;).setView([33.659541, -118.1552947], 9)
+
+L.tileLayer(&#39;https://tile.openstreetmap.org/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;.png&#39;, &#123;
+    maxZoom: 19,
+    attribution: &#39;&amp;copy; &lt;a href=&quot;http://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt;&#39;
+&#125;).addTo(map);
+
+const updateMap = (coordinates) =&gt; &#123;
+    map.setView([coordinates[0], coordinates[2]], 9)
+&#125;
+
+document.getElementById(&quot;search-form&quot;).addEventListener(&#39;submit&#39;, (event) =&gt; &#123;
+    event.preventDefault()
+    const searchTerm = event.target.searchTerm.value
+    fetch((&quot;https://nominatim.openstreetmap.org/search?format=json&amp;limit=3&amp;q=&quot; + searchTerm), &#123;
+        method: &quot;GET&quot;,
+        headers: &#123;
+            &#39;Content-Type&#39;:&#39;application/json&#39;,
+        &#125;
+    &#125;).then((response) =&gt; response.json())
+    .then((responseJson) =&gt; &#123;
+        if(responseJson[0]) &#123;
+            const coordinates = responseJson[0].boundingbox
+            updateMap(coordinates)
+        &#125; else &#123;
+            alert(&quot;No locations found.&quot;)
+        &#125;
+    &#125;)
+    .catch((error) =&gt; &#123;
+        console.error(error)
+    &#125;)
+&#125;);
+</code></pre>
+<p>Enter fullscreen mode Exit fullscreen mode</p>
+<p>This renders out the map using the Leaflet script we imported, as well as sets up an event listener to re-render the map when we search for a location.</p>
+<p><strong>Conclusion</strong><br>I hope you enjoy this map project as much as I did making it. I think these open source map libraries have huge potential, and I hope you can get this project running locally to test them out. If you want to download the full source code for this project the repo can be found on Github <a target="_blank" rel="noopener" href="https://github.com/Phantasm0009/Maps-Clone">here</a>.</p>
+</article><section class="jump-container is-flex is-justify-content-space-between my-6"><!-- em is empty placeholder--><a class="button is-default" href="/2022/12/17/typescript/" title="5 Reasons Why Every React Developer Should Learn TypeScript"><i class="iconfont icon-prev mr-2 has-text-grey"></i><span class="has-text-weight-semibold">Previous: 5 Reasons Why Every React Developer Should Learn TypeScript</span></a><a class="button is-default" href="/2022/12/17/search/" title="Simple Search Box With Icon"><span class="has-text-weight-semibold">Next: Simple Search Box With Icon</span><i class="iconfont icon-next ml-2 has-text-grey"></i></a></section><article class="mt-6 comment-container"><script async repo="Phantasm0009/lol" src="https://utteranc.es/client.js" issue-term="pathname" theme="preferred-color-scheme"></script></article></div></div></main></main><footer class="is-flex is-flex-direction-column is-align-items-center is-flex-shrink-0 is-family-serif"><section class="sns-container"><a title="twitter" target="_blank" rel="noopener nofollow" href="//twitter.com/Phantasm0006"><i class="iconfont icon-twitter"></i></a><!-- Github--><a title="github" target="_blank" rel="noopener nofollow" href="//github.com/Phantasm0009"><i class="iconfont icon-github"></i></a><!-- Ins--><a title="instagram" target="_blank" rel="noopener nofollow" href="//www.instagram.com//aditya_14_tiwari"><i class="iconfont icon-ins"></i></a><!-- RSS--><!-- 知乎--><!-- 领英--><!-- 脸书--></section><p><span>Copyright ©</span><span> Aditya 2022</span></p><div class="is-flex is-justify-content-center is-flex-wrap-wrap"><p>Powered by Hexo &verbar;&nbsp;</p><p class="is-flex is-justify-content-center"><a title="Hexo theme author" target="_blank" rel="noopener" href="//github.com/haojen">Theme by Haojen&nbsp;</a></p><div style="margin-top: 2px"><a class="github-button" title="github-button" target="_blank" rel="noopener" href="https://github.com/haojen/hexo-theme-Claudia" data-color-scheme="no-preference: light; light: light; dark: dark;" data-show-count="true"></a></div></div><div><span>hi</span></div></footer><script async defer src="https://buttons.github.io/buttons.js"></script><script src="/js/jquery-3.6.1.min.js"></script><script src="/js/jquery-fancybox.min.js"></script><script src="/js/img_zoom.js"></script><script src="/js/post.js"></script></body></html>
